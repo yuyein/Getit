@@ -20,8 +20,8 @@
 ### 구현 내용 및 결과물
 <초기화면>
 <div align=center>
-![image](https://github.com/user-attachments/assets/d078e1b9-7ca6-4006-a7f9-866a6d90c301)
-![image](https://github.com/user-attachments/assets/c7861e64-2074-4d97-a1d6-ade45ffd7f07)
+[![image](https://github.com/user-attachments/assets/d078e1b9-7ca6-4006-a7f9-866a6d90c301)](https://github.com/Juuuujuu/Getit/blob/patch-2/01.png)
+[![image](https://github.com/user-attachments/assets/c7861e64-2074-4d97-a1d6-ade45ffd7f07)](https://github.com/Juuuujuu/Getit/blob/patch-2/02.png)
 </div>
 
 ## 향 후 개선 및 발전 사항
