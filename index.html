@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>오하루</title>
+  <style>
+    /* 기본 스타일 설정 */
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      background-color: #C4DEF9;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    .container {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      width: 95%;
+      max-width: 1400px;
+    }
+
+    /* Main Content 스타일 */
+    .main-content {
+      text-align: center;
+    }
+
+    /* 이미지 스타일 */
+    .title-image {
+      margin-bottom: 5px; /* "오늘, 하루"와 "오 하 루" 간격 더 줄임 */
+    }
+
+    .title-img {
+      max-width: 100%;
+      height: auto;
+      margin-bottom: 0px; /* 간격 최소화 */
+    }
+
+    .subtitle-image {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-top: 0;
+    }
+
+    .subtitle-img {
+      max-width: 100%;
+      height: auto;
+      transform: scale(3); /* 이미지 크기 크게 확대 */
+    }
+
+    .icon-wrapper {
+      margin: 20px 0; /* 책 아이콘과 아래 링크 간격 */
+    }
+
+    .book-icon {
+      width: 100px; /* 적당한 크기 */
+      height: 100px;
+    }
+
+    /* 링크 스타일 */
+    .auth-links {
+      margin-top: 20px;
+    }
+
+    .link {
+      color: #536FB0;
+      text-decoration: none;
+      font-size: 16px; /* 회원가입/로그인 크기 축소 */
+    }
+
+    /* 반응형 스타일 */
+    @media screen and (max-width: 768px) {
+      .title-img {
+        width: 90%;
+      }
+
+      .subtitle-img {
+        transform: scale(1.5); /* 모바일에서 약간 줄임 */
+      }
+
+      .book-icon {
+        width: 80px; /* 모바일 환경에서 아이콘 크기 조정 */
+        height: 80px;
+      }
+
+      .auth-links .link {
+        font-size: 14px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- Main Content -->
+    <div class="main-content">
+      <!-- "오늘, 하루" 이미지 -->
+      <div class="title-image">
+        <img src="오늘하루.png" alt="오늘, 하루" class="title-img">
+      </div>
+      <!-- "오 하 루" 이미지 -->
+      <div class="subtitle-image">
+        <img src="오하루.png" alt="오 하 루" class="subtitle-img">
+      </div>
+      
+      <!-- 책 아이콘 이미지 -->
+      <div class="icon-wrapper">
+        <img src="책.png" alt="책 아이콘" class="book-icon">
+      </div>
+
+      <!-- 회원가입 / 로그인 링크 -->
+      <div class="auth-links">
+        <a href="firstlogin.html" class="link">회원가입</a> | 
+        <a href="login.html" class="link">로그인</a>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

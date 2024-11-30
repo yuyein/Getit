@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>로그인</title>
+  <style>
+    /* 기본 스타일 설정 */
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      background-color: #fff;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    .top-section {
+      background-color: #C4DEF9;
+      width: 100%;
+      padding: 40px 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .bottom-section {
+      background-color: #fff;
+      width: 100%;
+      padding: 40px 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 100%;
+      max-width: 400px;
+    }
+
+    /* 아이콘 및 이미지 스타일 */
+    .icon-wrapper {
+      margin-bottom: 20px;
+    }
+
+    .icon-wrapper img {
+      width: 64px;
+      height: 64px;
+    }
+
+    .subtitle-img {
+      width: 90%; /* 최대 크기 늘림 */
+      max-width: 300px; /* 고정 크기 제한 */
+      margin-top: 10px;
+      display: block;
+    }
+
+    /* 로그인 폼 스타일 */
+    .form-group {
+      width: 100%;
+      margin-bottom: 20px;
+      position: relative;
+    }
+
+    .form-group input {
+      width: 100%;
+      padding: 10px 0;
+      font-size: 16px;
+      border: none;
+      border-bottom: 2px solid #ccc;
+      outline: none;
+      background-color: transparent;
+      color: #333;
+    }
+
+    .form-group input:focus {
+      border-bottom: 2px solid #4a90e2;
+    }
+
+    button {
+      width: 100%;
+      padding: 10px;
+      background-color: #4a90e2;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      font-size: 16px;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+
+    button:hover {
+      background-color: #357ab7;
+    }
+
+    /* 반응형 스타일 */
+    @media screen and (max-width: 768px) {
+      .subtitle-img {
+        width: 100%;
+        max-width: 250px;
+      }
+
+      .form-group input {
+        font-size: 14px;
+        padding: 8px 0;
+      }
+
+      button {
+        font-size: 14px;
+        padding: 8px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- 위쪽 배경 -->
+  <div class="top-section">
+      <div class="container">
+        <!-- 오 하 루 이미지 -->
+        <div>
+          <img src="오하루.png" alt="오 하 루" class="subtitle-img">
+        </div>
+      <!-- 아이콘 -->
+      <div class="icon-wrapper">
+        <img src="책.png" alt="책 아이콘">
+      </div>
+
+    </div>
+  </div>
+
+  <!-- 아래쪽 배경 -->
+  <div class="bottom-section">
+    <div class="container">
+      <!-- 로그인 폼 -->
+      <div class="form-group">
+        <input type="text" id="id" placeholder="ID" required>
+      </div>
+
+      <div class="form-group">
+        <input type="password" id="password" placeholder="PASSWORD" required>
+      </div>
+
+      <div>
+        <button onclick="login()">Login</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // 로그인 함수
+    function login() {
+      // ID와 PASSWORD 입력값 가져오기
+      var id = document.getElementById("id").value;
+      var password = document.getElementById("password").value;
+
+      // 입력값이 비어있지 않으면
+      if (id !== "" && password !== "") {
+        alert("로그인 되었습니다");
+        window.location.href = "home.html"; // 로그인 성공 후 home.html로 이동
+      } else {
+        alert("ID와 PASSWORD를 입력하세요.");
+      }
+    }
+  </script>
+</body>
+</html>
