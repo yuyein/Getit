@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>회원가입</title>
+  <style>
+    @font-face {
+      font-family: 'RixXladywatermelonR';
+      src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/2408-4@1.0/RixXladywatermelonR.woff2') format('woff2');
+      font-weight: normal;
+      font-style: normal;
+    }
+    /* 기본 스타일 설정 */
+    body {
+      font-family: "RixXladywatermelonR",Arial, sans-serif;
+      margin: 0;
+      background-color: #ffffff; /* 배경색 */
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      padding: 20px;
+    }
+
+    /* 텍스트와 버튼을 감싸는 컨테이너 */
+    .container {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      max-width: 400px;
+      text-align: center;
+      margin-top: 20px;
+    }
+
+    /* 제목과 폼 위치 스타일링 */
+    .main-content {
+      width: 100%;
+    }
+
+    h2 {
+      font-size: 24px;
+      color: #536FB0;
+      margin-bottom: 30px;
+    }
+
+    /* 이름과 연락처 라벨 */
+    .form-group {
+      margin-bottom: 20px;
+      text-align: left;
+      width: 100%;
+    }
+
+    label {
+      font-size: 16px;
+      color: #536FB0;
+      margin-bottom: 5px;
+      display: inline-block;
+    }
+
+    input {
+      width: 100%;
+      padding: 12px;
+      border: none;
+      border-bottom: 2px solid #536FB0;
+      font-size: 16px;
+      margin-bottom: 15px;
+      outline: none;
+      background: transparent;
+    }
+
+    input:focus {
+      border-color: #536FB0;
+    }
+
+    /* next 버튼 스타일 */
+    button {
+      width: 100%;
+      padding: 12px;
+      background-color: #536FB0;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      font-size: 16px;
+      cursor: pointer;
+      margin-top: 20px;
+    }
+
+    button:hover {
+      background-color: #536FB0;
+    }
+
+    /* 반응형 스타일 */
+    @media screen and (max-width: 768px) {
+      h2 {
+        font-size: 20px;
+      }
+
+      input {
+        font-size: 14px;
+        padding: 10px;
+      }
+
+      button {
+        font-size: 14px;
+        padding: 10px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="main-content">
+      <!-- 여기서 "이름"과 "연락처" 입력 -->
+      <h2>회원가입</h2>
+
+      <div class="form-group">
+        <label for="name">이름</label>
+        <input type="text" id="name" placeholder="이름을 입력하세요" required>
+      </div>
+
+      <div class="form-group">
+        <label for="contact">연락처</label>
+        <input type="text" id="contact" placeholder="연락처를 입력하세요" required>
+      </div>
+
+      <!-- next 버튼 -->
+      <div>
+        <button onclick="nextPage()">next ></button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // next 버튼 클릭 시 페이지 이동
+    function nextPage() {
+      var name = document.getElementById("name").value;
+      var contact = document.getElementById("contact").value;
+
+      // 입력값이 비어있지 않으면 next 페이지로 이동
+      if (name !== "" && contact !== "") {
+        window.location.href = "firstlogin2.html";  // firstlogin2.html로 이동
+      } else {
+        alert("모든 정보를 입력해주세요.");
+      }
+    }
+  </script>
+</body>
+</html>

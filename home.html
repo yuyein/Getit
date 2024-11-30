@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>프로필 페이지</title>
+    <style>
+        @font-face {
+            font-family: 'RixXladywatermelonR';
+            src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/2408-4@1.0/RixXladywatermelonR.woff2') format('woff2');
+            font-weight: normal;
+            font-style: normal;
+        }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "RixXladywatermelonR", Arial, sans-serif;
+        }
+
+        body {
+            background-color: #f5f5f5;
+            min-height: 100vh;
+            position: relative;
+        }
+
+        /* 헤더 스타일 */
+        .header {
+            padding: 15px;
+            background-color: #C4DEF9;
+            color: white;
+            display: flex;
+            justify-content: flex-end;
+        }
+
+        .menu-toggle {
+            font-size: 24px;
+            background: none;
+            border: none;
+            color: white;
+            cursor: pointer;
+        }
+
+        /* 프로필 섹션 */
+        .profile-section {
+            background-color: #C4DEF9;
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .profile-image {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background-color: white;
+        }
+
+        .profile-info {
+            flex-grow: 1;
+        }
+
+        .profile-name {
+            font-size: 18px;
+            margin-bottom: 5px;
+        }
+
+        .profile-bar {
+            width: 100%;
+            height: 8px;
+            background-color: #fff;
+            border-radius: 4px;
+        }
+
+        /* 메인 콘텐츠 */
+        .main-content {
+            padding: 20px;
+        }
+
+        .calendar-container {
+            background-color: white;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .calendar-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 5px;
+        }
+
+        .calendar-day {
+            aspect-ratio: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 5px;
+        }
+
+        .calendar-day.highlighted {
+            background-color: #C4DEF9;
+        }
+
+        /* 하단 버튼 */
+        .bottom-button {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background-color: #C4DEF9;
+            padding: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            text-decoration: none;
+            color: black;
+        }
+
+        .bottom-button img {
+            width: 24px;
+            height: 24px;
+        }
+
+        /* 사이드바 */
+        .sidebar {
+            width: 250px;
+            background-color: #d3e3f3;
+            position: fixed;
+            top: 0;
+            right: -250px;
+            height: 100%;
+            box-shadow: -2px 0 5px rgba(0, 0, 0, 0.1);
+            transition: right 0.3s ease;
+            z-index: 1000;
+        }
+
+        .sidebar.active {
+            right: 0;
+        }
+
+        .profile {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .profile-image {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto;
+            background-color: #ffffff;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .profile-image img {
+            width: 50%;
+        }
+
+        .profile-name {
+            margin: 10px 0;
+            color: #333333;
+            font-weight: bold;
+        }
+
+        nav ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 20px 0;
+        }
+
+        nav ul li {
+            margin: 10px 0;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            display: block;
+            padding: 10px 20px;
+            background-color: #a5c8e7;
+            color: #ffffff;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        nav ul li a:hover {
+            background-color: #7daed6;
+        }
+
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.4);
+            display: none;
+            z-index: 999;
+        }
+
+        .overlay.active {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <button id="menu-button" class="menu-toggle">☰</button>
+    </header>
+
+    <section class="profile-section">
+        <div class="profile-image"></div>
+        <div class="profile-info">
+            <div class="profile-name">ㅇㅇㅇ 님, 반가워요!</div>
+            <div class="profile-bar"></div>
+        </div>
+    </section>
+
+    <main class="main-content">
+        <div class="calendar-container">
+            <div class="calendar-grid" id="calendarGrid"></div>
+        </div>
+    </main>
+
+    <a href="ai.html" class="bottom-button">
+        <img src="연필.png" alt="글쓰기">
+        <span>오늘의 글 쓰러 가기</span>
+    </a>
+
+    <div id="sidebar" class="sidebar">
+        <div class="profile">
+            <div class="profile-image">
+                <img src="프로필.png" alt="Profile Icon">
+            </div>
+            <p class="profile-name">내 프로필</p>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="home.html">Home</a></li>
+                <li><a href="month_record.html">Graph</a></li>
+                <li><a href="login.html">로그아웃</a></li>
+            </ul>
+        </nav>
+    </div>
+
+    <div id="overlay" class="overlay"></div>
+
+    <script>
+        const menuButton = document.getElementById('menu-button');
+        const sidebar = document.getElementById('sidebar');
+        const overlay = document.getElementById('overlay');
+
+        menuButton.addEventListener('click', () => {
+            sidebar.classList.toggle('active');
+            overlay.classList.toggle('active');
+        });
+
+        overlay.addEventListener('click', () => {
+            sidebar.classList.remove('active');
+            overlay.classList.remove('active');
+        });
+
+        // 캘린더 그리드 생성
+        function createCalendar() {
+            const grid = document.getElementById('calendarGrid');
+            const totalDays = 30;
+            const highlightedDays = [3, 7, 12, 15, 20, 25];
+
+            for (let i = 1; i <= totalDays; i++) {
+                const day = document.createElement('div');
+                day.className = `calendar-day ${highlightedDays.includes(i) ? 'highlighted' : ''}`;
+                day.textContent = i;
+                grid.appendChild(day);
+            }
+        }
+
+        window.onload = createCalendar;
+    </script>
+</body>
+</html>

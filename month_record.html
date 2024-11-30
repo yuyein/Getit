@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Menu Interaction</title>
+  <style>
+    @font-face {
+      font-family: 'RixXladywatermelonR';
+      src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/2408-4@1.0/RixXladywatermelonR.woff2') format('woff2');
+      font-weight: normal;
+      font-style: normal;
+  }
+    body {
+      font-family: "RixXladywatermelonR",Arial, sans-serif;
+      margin: 0;
+      background-color: #f7f9fc;
+    }
+
+    .header {
+      padding: 15px;
+      background-color: #C4DEF9;
+      color: white;
+      display: flex;
+      justify-content: flex-end; /* 메뉴 버튼을 오른쪽으로 배치 */
+      align-items: center;
+    }
+
+    .menu-toggle {
+      font-size: 24px;
+      background: none;
+      border: none;
+      color: white;
+      cursor: pointer;
+    }
+
+    .main-content {
+      padding: 20px;
+      text-align: center;
+    }
+
+    .diary-section {
+      margin: 20px auto;
+      max-width: 800px;
+    }
+
+    .diary-display {
+      border: 2px solid #C4DEF9;
+      border-radius: 10px;
+      height: 300px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+    }
+
+    .diary-display img {
+      max-width: 100%;
+      max-height: 100%;
+      object-fit: contain;
+    }
+
+    .section-title {
+      margin-top: 20px;
+      font-size: 1.5rem;
+      color: #333;
+    }
+
+    .section-subtitle {
+      margin-top: 10px;
+      font-size: 1rem;
+      color: #666;
+    }
+
+    /* 사이드바 스타일 */
+    .sidebar {
+      width: 250px;
+      background-color: #d3e3f3;
+      position: fixed;
+      top: 0;
+      right: -250px; /* 기본적으로 오른쪽에 숨겨짐 */
+      height: 100%;
+      box-shadow: -2px 0 5px rgba(0, 0, 0, 0.1);
+      /*padding: 15px;*/
+      transition: right 0.3s ease;
+      z-index: 1000;
+    }
+
+    .sidebar.active {
+      right: 0; /* active 상태에서만 보이게 */
+    }
+
+    .profile {
+      text-align: center;
+      margin-top: 20px;
+    }
+
+    .profile-image {
+      width: 80px;
+      height: 80px;
+      margin: 0 auto;
+      background-color: #ffffff;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    .profile-image img {
+      width: 50%;
+    }
+
+    .profile-name {
+      margin: 10px 0;
+      color: #333333;
+      font-weight: bold;
+    }
+
+    nav ul {
+      list-style-type: none;
+      padding: 0;
+      margin: 20px 0;
+    }
+
+    nav ul li {
+      margin: 10px 0;
+    }
+
+    nav ul li a {
+      text-decoration: none;
+      display: block;
+      padding: 10px 20px;
+      background-color: #a5c8e7;
+      color: #ffffff;
+      border-radius: 5px;
+      transition: background-color 0.3s ease;
+    }
+
+    nav ul li a:hover {
+      background-color: #7daed6;
+    }
+
+    /* 오버레이 */
+    .overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.4);
+      display: none;
+      z-index: 999;
+    }
+
+    .overlay.active {
+      display: block;
+    }
+  </style>
+</head>
+<body>
+  <header class="header">
+    <button id="menu-button" class="menu-toggle">☰</button>
+  </header>
+  
+  <main class="main-content">
+    <div class="diary-section">
+      <!-- 네모 칸 -->
+      <div class="diary-display">
+        <img src="그래프.png" alt="Graph Image">
+      </div>
+      <!-- 제목 및 부제 -->
+      <p class="section-title">한 달의 기록</p>
+      <p class="section-subtitle">한 달간 나의 감정 추이는 위 그래프와 같아요.</p>
+    </div>
+  </main>
+
+  <!-- 사이드바 메뉴 -->
+  <div id="sidebar" class="sidebar">
+    <div class="profile">
+      <div class="profile-image">
+        <img src="프로필.png" alt="Profile Icon">
+      </div>
+      <p class="profile-name">내 프로필</p>
+    </div>
+    <nav>
+      <ul>
+        <li><a href="home.html">Home</a></li>
+        <li><a href="#" onclick="location.reload()">Graph</a></li>
+        <li><a href="login.html">로그아웃</a></li>
+      </ul>
+    </nav>
+  </div>
+
+  <!-- 오버레이 -->
+  <div id="overlay" class="overlay"></div>
+
+  <script>
+    const menuButton = document.getElementById('menu-button');
+    const sidebar = document.getElementById('sidebar');
+    const overlay = document.getElementById('overlay');
+
+    // 메뉴 버튼 클릭 시 사이드바 열기/닫기
+    menuButton.addEventListener('click', () => {
+      sidebar.classList.toggle('active');
+      overlay.classList.toggle('active');
+    });
+
+    // 오버레이 클릭 시 사이드바 닫기
+    overlay.addEventListener('click', () => {
+      sidebar.classList.remove('active');
+      overlay.classList.remove('active');
+    });
+  </script>
+</body>
+</html>

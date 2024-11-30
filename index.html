@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>오하루</title>
+  <link rel="preconnect" href="https://cdn.jsdelivr.net">
+  <style>
+    @font-face {
+      font-family: 'RixXladywatermelonR';
+      src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/2408-4@1.0/RixXladywatermelonR.woff2') format('woff2');
+      font-weight: normal;
+      font-style: normal;
+    }
+
+    body {
+      font-family: 'RixXladywatermelonR', Arial, sans-serif;
+      margin: 0;
+      background-color: #C4DEF9;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    .container {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      width: 95%;
+      max-width: 1400px;
+    }
+
+    .main-content {
+      text-align: center;
+    }
+
+    .title-image {
+      margin-bottom: 5px;
+    }
+
+    .title-img {
+      max-width: 100%;
+      height: auto;
+      margin-bottom: 0px;
+    }
+
+    .subtitle-image {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-top: 0;
+    }
+
+    .subtitle-img {
+      max-width: 100%;
+      height: auto;
+      transform: scale(3);
+    }
+
+    .icon-wrapper {
+      margin: 20px 0;
+    }
+
+    .book-icon {
+      width: 100px;
+      height: 100px;
+    }
+
+    .auth-buttons {
+      margin-top: 20px;
+    }
+
+    .button {
+      background-color: #536FB0;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      margin: 5px;
+      font-size: 16px;
+      border-radius: 5px;
+      cursor: pointer;
+      font-family: 'RixXladywatermelonR', Arial, sans-serif;
+    }
+
+    .button:hover {
+      background-color: #435a8a;
+    }
+
+    @media screen and (max-width: 768px) {
+      .title-img {
+        width: 90%;
+      }
+
+      .subtitle-img {
+        transform: scale(1.5);
+      }
+
+      .book-icon {
+        width: 80px;
+        height: 80px;
+      }
+
+      .button {
+        font-size: 14px;
+        padding: 8px 16px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="main-content">
+      <div class="title-image">
+        <img src="오늘하루.png" alt="오늘, 하루" class="title-img">
+      </div>
+      <div class="subtitle-image">
+        <img src="오하루.png" alt="오 하 루" class="subtitle-img">
+      </div>
+      
+      <div class="icon-wrapper">
+        <img src="책.png" alt="책 아이콘" class="book-icon">
+      </div>
+
+      <div class="auth-buttons">
+        <button class="button" onclick="location.href='firstlogin.html'">회원가입</button>
+        <button class="button" onclick="location.href='login.html'">로그인</button>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

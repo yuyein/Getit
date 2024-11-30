@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>채팅</title>
+    <style>
+        @font-face {
+            font-family: 'RixXladywatermelonR';
+            src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/2408-4@1.0/RixXladywatermelonR.woff2') format('woff2');
+            font-weight: normal;
+            font-style: normal;
+        }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, "RixXladywatermelonR", Roboto, sans-serif;
+        }
+
+        body {
+            background-color: white;
+            min-height: 100vh;
+        }
+
+        /* 헤더 스타일 */
+        .header {
+            padding: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #eee;
+        }
+
+        .greeting {
+            padding: 15px;
+            color: #333;
+        }
+
+        .menu-button {
+            width: 30px;
+            height: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            background: none;
+            border: none;
+            cursor: pointer;
+        }
+
+        .menu-button span {
+            width: 100%;
+            height: 2px;
+            background-color: #333;
+        }
+
+        /* 채팅 컨테이너 */
+        .chat-container {
+            padding: 20px;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* 말풍선 스타일 */
+        .message {
+            margin-bottom: 20px;
+            max-width: 80%;
+        }
+
+        .message.right {
+            margin-left: auto;
+        }
+
+        .bubble {
+            position: relative;
+            padding: 15px;
+            background: #fff;
+            border-radius: 10px;
+            border: 1px solid #ddd;
+            display: inline-block;
+        }
+
+        .bubble.main-question {
+            background: #fff;
+            margin-bottom: 30px;
+        }
+
+        .option-bubble {
+            background: #f0f8ff;
+            width: 100%;
+            padding: 15px;
+            margin-bottom: 10px;
+            border: none;
+            border-radius: 10px;
+            text-align: left;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .option-bubble:hover {
+            background: #e0f0ff;
+        }
+
+        /* 입력 영역 */
+        .input-container {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 15px;
+            background: #f0f8ff;
+            display: flex;
+            gap: 10px;
+        }
+
+        .input-field {
+            flex-grow: 1;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            outline: none;
+        }
+
+        .send-button {
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 10px;
+        }
+
+        /* 사이드바 */
+        .sidebar {
+            position: fixed;
+            top: 0;
+            right: -280px;
+            width: 280px;
+            height: 100vh;
+            background-color: white;
+            transition: right 0.3s ease;
+            box-shadow: -2px 0 5px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+        }
+
+        .sidebar.active {
+            right: 0;
+        }
+
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.5);
+            display: none;
+            z-index: 999;
+        }
+
+        .overlay.active {
+            display: block;
+        }
+
+        /* 애니메이션 */
+        .fade-out {
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+
+        .user-message {
+            display: none;
+            margin-left: auto;
+        }
+        /* 새로운 스타일: 중앙 정렬된 메시지 컨테이너 */
+        .centered-message-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1001;
+            pointer-events: none;
+        }
+
+        .centered-message {
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            max-width: 80%;
+            pointer-events: auto;
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div></div>
+        <button class="menu-button" onclick="toggleSidebar()">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+    </header>
+
+    <div class="greeting">안녕하세요 ○○님, 오늘도 함께 일기써봐요!</div>
+
+    <div class="chat-container">
+        <div class="message">
+            <div class="bubble main-question">
+                누구와 함께 했나요?
+            </div>
+        </div>
+
+        <div id="options-container">
+            <button class="option-bubble" onclick="selectOption(this)">혼자</button>
+            <button class="option-bubble" onclick="selectOption(this)">친구와</button>
+            <button class="option-bubble" onclick="selectOption(this)">가족과</button>
+        </div>
+
+        <div class="message right user-message" id="userMessage">
+            <div class="bubble"></div>
+        </div>
+    </div>
+
+    <div class="input-container">
+        <input type="text" class="input-field" placeholder="텍스트 입력하기..." id="userInput">
+        <button class="send-button" onclick="sendMessage()">
+            ✈️
+        </button>
+    </div>
+
+    <div class="sidebar" id="sidebar">
+        <div style="padding: 20px;">
+            메뉴 내용
+        </div>
+    </div>
+
+    <div class="overlay" onclick="toggleSidebar()"></div>
+
+    <script>
+        function toggleSidebar() {
+            document.getElementById('sidebar').classList.toggle('active');
+            document.querySelector('.overlay').classList.toggle('active');
+        }
+
+        function selectOption(button) {
+            const text = button.textContent;
+            document.getElementById('userInput').value = text;
+            sendMessage();
+        }
+
+        function sendMessage() {
+            const input = document.getElementById('userInput');
+            const text = input.value.trim();
+            
+            if (text) {
+                // 옵션 숨기기
+                const optionsContainer = document.getElementById('options-container');
+                optionsContainer.classList.add('fade-out');
+
+                // 사용자 메시지 표시
+                const userMessage = document.getElementById('userMessage');
+                userMessage.style.display = 'block';
+                userMessage.querySelector('.bubble').textContent = text;
+
+                // 입력 필드 초기화
+                input.value = '';
+
+                // 1초 후 페이지 이동
+                setTimeout(() => {
+                    window.location.href = 'ai3.html';
+                }, 1000);
+            }
+        }
+    </script>
+</body>
+</html>

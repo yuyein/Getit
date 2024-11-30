@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>로그인</title>
+  <style>
+    @font-face {
+      font-family: 'RixXladywatermelonR';
+      src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/2408-4@1.0/RixXladywatermelonR.woff2') format('woff2');
+      font-weight: normal;
+      font-style: normal;
+    }
+    /* 기본 스타일 설정 */
+    body {
+      font-family: "RixXladywatermelonR",Arial, sans-serif;
+      margin: 0;
+      background-color: #fff;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    .top-section {
+      background-color: #C4DEF9;
+      width: 100%;
+      padding: 40px 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .bottom-section {
+      background-color: #fff;
+      width: 100%;
+      padding: 40px 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 100%;
+      max-width: 400px;
+    }
+
+    /* 아이콘 및 이미지 스타일 */
+    .icon-wrapper {
+      margin-bottom: 20px;
+    }
+
+    .icon-wrapper img {
+      width: 64px;
+      height: 64px;
+    }
+
+    .subtitle-img {
+      width: 90%; /* 최대 크기 늘림 */
+      max-width: 300px; /* 고정 크기 제한 */
+      margin-top: 10px;
+      display: block;
+    }
+
+    /* 로그인 폼 스타일 */
+    .form-group {
+      width: 100%;
+      margin-bottom: 20px;
+      position: relative;
+    }
+
+    .form-group input {
+      width: 100%;
+      padding: 12px 15px;
+      font-size: 16px;
+      border: none;
+      border-radius: 10px;
+      background-color: #f5f7fa;
+      color: #333;
+      transition: all 0.3s ease;
+      box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+    }
+
+    .form-group input:focus {
+      outline: none;
+      background-color: #fff;
+      box-shadow: 0 0 0 2px #536FB0, inset 0 1px 3px rgba(0, 0, 0, 0.1);
+    }
+    .form-group input::placeholder {
+      color: #aab5c0;
+      transition: all 0.3s ease;
+    }
+    .form-group input:focus::placeholder {
+      opacity: 0.7;
+      transform: translateX(5px);
+    }
+    .form-group {
+      position: relative;
+    }
+    .form-group::before {
+      content: '';
+      position: absolute;
+      right: 15px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 20px;
+      height: 20px;
+      opacity: 0.5;
+      background-size: contain;
+      background-repeat: no-repeat;
+      transition: opacity 0.3s ease;
+    }
+    .form-group.id::before {
+      background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%23536FB0"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>');
+    }
+
+    .form-group.password::before {
+      background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%23536FB0"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/></svg>');
+    }
+
+    .form-group:focus-within::before {
+      opacity: 1;
+    }
+
+    button {
+      width: 100%;
+      padding: 10px;
+      background-color: #4a90e2;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      font-size: 16px;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+
+    button:hover {
+      background-color: #357ab7;
+    }
+
+    /* 반응형 스타일 */
+    @media screen and (max-width: 768px) {
+      .subtitle-img {
+        width: 100%;
+        max-width: 250px;
+      }
+
+      .form-group input {
+        font-size: 14px;
+        padding: 8px 0;
+      }
+
+      button {
+        width: 100%;
+        padding: 12px;
+        background-color: #536FB0; /* 기존 앱의 테마 컬러와 통일 */
+        color: white;
+        border: none;
+        border-radius: 25px; /* 더 부드러운 모서리 */
+        font-size: 16px;
+        cursor: pointer;
+        margin-top: 20px;
+        transition: all 0.3s ease; /* 부드러운 효과 */
+        box-shadow: 0 2px 10px rgba(83, 111, 176, 0.2); /* 은은한 그림자 */
+        font-family: "RixXladywatermelonR", Arial, sans-serif;
+        position: relative;
+        overflow: hidden;
+      }
+      button:hover {
+        background-color: #435a8a; /* 좀 더 진한 색상 */
+        box-shadow: 0 4px 15px rgba(83, 111, 176, 0.3); /* 호버 시 그림자 강화 */
+        transform: translateY(-2px); /* 살짝 위로 떠오르는 효과 */
+      }
+
+      button:active {
+        transform: translateY(0); /* 클릭 시 원래 위치로 */
+        box-shadow: 0 2px 5px rgba(83, 111, 176, 0.2);
+      }
+      .ripple {
+        position: absolute;
+        background: rgba(255, 255, 255, 0.3);
+        border-radius: 50%;
+        transform: scale(0);
+        animation: ripple 0.6s linear;
+        pointer-events: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- 위쪽 배경 -->
+  <div class="top-section">
+      <div class="container">
+        <!-- 오 하 루 이미지 -->
+        <div>
+          <img src="오하루.png" alt="오 하 루" class="subtitle-img">
+        </div>
+      <!-- 아이콘 -->
+      <div class="icon-wrapper">
+        <img src="책.png" alt="책 아이콘">
+      </div>
+
+    </div>
+  </div>
+
+  <!-- 아래쪽 배경 -->
+  <div class="bottom-section">
+    <div class="container">
+      <!-- 로그인 폼 -->
+      <div class="form-group id">
+        <input type="text" id="id" placeholder="ID" required>
+      </div>
+
+      <div class="form-group password">
+        <input type="password" id="password" placeholder="PASSWORD" required>
+      </div>
+
+      <div>
+        <button onclick="login()">로그인</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // 로그인 함수
+    function login() {
+      // ID와 PASSWORD 입력값 가져오기
+      var id = document.getElementById("id").value;
+      var password = document.getElementById("password").value;
+
+      // 입력값이 비어있지 않으면
+      if (id !== "" && password !== "") {
+        alert("로그인 되었습니다");
+        window.location.href = "home.html"; // 로그인 성공 후 home.html로 이동
+      } else {
+        alert("ID와 PASSWORD를 입력하세요.");
+      }
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>일기 작성</title>
+    <style>
+        @font-face {
+            font-family: 'RixXladywatermelonR';
+            src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/2408-4@1.0/RixXladywatermelonR.woff2') format('woff2');
+            font-weight: normal;
+            font-style: normal;
+        }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, "RixXladywatermelonR", Roboto, sans-serif;
+        }
+
+        body {
+            background-color: #E6F3FF;
+            min-height: 100vh;
+        }
+
+        /* 헤더 스타일 */
+        .header {
+            padding: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .menu-button {
+            width: 30px;
+            height: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            background: none;
+            border: none;
+            cursor: pointer;
+            z-index: 1002;
+        }
+
+        .menu-button span {
+            width: 100%;
+            height: 2px;
+            background-color: #333;
+        }
+
+        /* 메인 컨테이너 */
+        .main-container {
+            padding: 20px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        /* 일기 박스 */
+        .diary-box {
+            background-color: #1E90FF;
+            padding: 20px;
+            border-radius: 10px;
+            color: white;
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        .profile-image-container {
+            position: absolute;
+            top: -20px;
+            left: -20px;
+            width: 60px;
+            height: 60px;
+            background-color: white;
+            border-radius: 50%;
+            overflow: hidden;
+        }
+
+        .profile-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .diary-date {
+            margin-bottom: 15px;
+            font-size: 1.1em;
+        }
+
+        .diary-content {
+            margin-bottom: 15px;
+            line-height: 1.6;
+        }
+
+        .diary-image {
+            max-width: 100%;
+            border-radius: 5px;
+            margin-top: 15px;
+        }
+
+        /* 입력 영역 */
+        .input-container {
+            background-color: white;
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 20px;
+        }
+
+        .input-field {
+            width: 100%;
+            min-height: 100px;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            margin-bottom: 10px;
+            resize: vertical;
+        }
+
+        .save-button {
+            background-color: #1E90FF;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+            font-size: 1em;
+        }
+
+        /* 사이드바 */
+        .sidebar {
+            position: fixed;
+            top: 0;
+            right: -280px;
+            width: 280px;
+            height: 100vh;
+            background-color: white;
+            transition: right 0.3s ease;
+            box-shadow: -2px 0 5px rgba(0, 0, 0, 0.1);
+            z-index: 1001;
+        }
+
+        .sidebar.active {
+            right: 0;
+        }
+
+        .sidebar-profile {
+            background-color: #E6F3FF;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .sidebar-profile-image {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background-color: white;
+            margin: 0 auto 10px;
+            overflow: hidden;
+        }
+
+        .sidebar-profile-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .menu-items {
+            list-style: none;
+            padding: 0;
+        }
+
+        .menu-item {
+            padding: 15px 20px;
+            border-bottom: 1px solid #eee;
+            cursor: pointer;
+        }
+
+        .menu-item.active {
+            background-color: #E6F3FF;
+        }
+
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.5);
+            display: none;
+            z-index: 1000;
+        }
+
+        .overlay.active {
+            display: block;
+        }
+
+        /* 이미지 업로드 버튼 */
+        .image-upload {
+            margin-bottom: 10px;
+        }
+
+        .image-upload input[type="file"] {
+            display: none;
+        }
+
+        .image-upload label {
+            display: inline-block;
+            padding: 8px 15px;
+            background-color: #f0f0f0;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        @media (max-width: 768px) {
+            .main-container {
+                padding: 10px;
+            }
+            
+            .diary-box {
+                margin: 30px 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div></div>
+        <button class="menu-button" onclick="toggleSidebar()">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+    </header>
+
+    <div class="main-container">
+        <div class="diary-box">
+            <div class="diary-date" id="diaryDate"></div>
+            <div class="diary-content" id="diaryContent">
+                오늘은 친구랑 카페에 갔다. 즐거운 이야기를 많이해서 재미있었다.
+            </div>
+            <img id="diaryImage" class="diary-image" style="display: none;">
+        </div>
+
+        <div class="input-container">
+            <div class="image-upload">
+                <label for="imageInput">이미지 추가하기</label>
+                <input type="file" id="imageInput" accept="image/*" onchange="handleImageUpload(event)">
+            </div>
+            <textarea class="input-field" id="contentInput">오늘은 친구랑 카페에 갔다. 즐거운 이야기를 많이해서 재미있었다.</textarea>
+            <button class="save-button" onclick="saveContentAndRedirect()">저장하기</button>
+
+        </div>
+    </div>
+
+    <div class="sidebar" id="sidebar">
+        <div class="sidebar-profile">
+            <div class="sidebar-profile-image">
+                <img src="/placeholder.svg" alt="프로필">
+            </div>
+            <div>내 프로필</div>
+        </div>
+        <ul class="menu-items">
+            <li class="menu-item active">Home</li>
+            <li class="menu-item">Graph</li>
+            <li class="menu-item">로그아웃</li>
+        </ul>
+    </div>
+
+    <div class="overlay" onclick="toggleSidebar()"></div>
+
+    <script>
+        // 현재 날짜 표시
+        function updateDate() {
+            const now = new Date();
+            const days = ['일', '월', '화', '수', '목', '금', '토'];
+            const dateString = `${now.getFullYear()}년 ${String(now.getMonth() + 1).padStart(2, '0')}월 ${String(now.getDate()).padStart(2, '0')}일 ${days[now.getDay()]}요일`;
+            document.getElementById('diaryDate').textContent = dateString;
+        }
+    
+        // 사이드바 토글
+        function toggleSidebar() {
+            document.getElementById('sidebar').classList.toggle('active');
+            document.querySelector('.overlay').classList.toggle('active');
+        }
+    
+        // 이미지 업로드 처리
+        function handleImageUpload(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const diaryImage = document.getElementById('diaryImage');
+                    diaryImage.src = e.target.result;
+                    diaryImage.style.display = 'block';
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+    
+        // 내용 저장 후 바로 반영
+        function saveContent() {
+            const newContent = document.getElementById('contentInput').value;
+            document.getElementById('diaryContent').textContent = newContent;
+        }
+    
+        // 내용 저장 후 몇 초 기다린 후 페이지 이동
+        function saveContentAndRedirect() {
+            const newContent = document.getElementById('contentInput').value;
+            // 일기 내용 바로 업데이트
+            document.getElementById('diaryContent').textContent = newContent;
+    
+            // 몇 초 후에 페이지 이동 (2초 후)
+            setTimeout(function() {
+                window.location.href = "month_record.html";
+            }, 2000);  // 2000ms = 2초
+        }
+    
+        // 페이지 로드 시 날짜 업데이트
+        window.onload = updateDate;
+    </script>
+    
+</body>
+</html>
